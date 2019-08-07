@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 11.4
--- Dumped by pg_dump version 11.4
+-- Dumped from database version 10.5
+-- Dumped by pg_dump version 10.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -12,13 +12,62 @@ SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
-SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
 
 SET default_tablespace = '';
 
 SET default_with_oids = false;
+
+--
+-- Name: album_artists; Type: TABLE; Schema: public; Owner: Guest
+--
+
+CREATE TABLE public.album_artists (
+    id bigint NOT NULL,
+    artist_id bigint,
+    album_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.album_artists OWNER TO "Guest";
+
+--
+-- Name: album_artists_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+--
+
+CREATE SEQUENCE public.album_artists_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.album_artists_id_seq OWNER TO "Guest";
+
+--
+-- Name: album_artists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+--
+
+ALTER SEQUENCE public.album_artists_id_seq OWNED BY public.album_artists.id;
+
 
 --
 -- Name: albums; Type: TABLE; Schema: public; Owner: Guest
@@ -72,6 +121,41 @@ CREATE TABLE public.ar_internal_metadata (
 ALTER TABLE public.ar_internal_metadata OWNER TO "Guest";
 
 --
+-- Name: artists; Type: TABLE; Schema: public; Owner: Guest
+--
+
+CREATE TABLE public.artists (
+    id bigint NOT NULL,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.artists OWNER TO "Guest";
+
+--
+-- Name: artists_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+--
+
+CREATE SEQUENCE public.artists_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.artists_id_seq OWNER TO "Guest";
+
+--
+-- Name: artists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+--
+
+ALTER SEQUENCE public.artists_id_seq OWNED BY public.artists.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: Guest
 --
 
@@ -120,10 +204,24 @@ ALTER SEQUENCE public.songs_id_seq OWNED BY public.songs.id;
 
 
 --
+-- Name: album_artists id; Type: DEFAULT; Schema: public; Owner: Guest
+--
+
+ALTER TABLE ONLY public.album_artists ALTER COLUMN id SET DEFAULT nextval('public.album_artists_id_seq'::regclass);
+
+
+--
 -- Name: albums id; Type: DEFAULT; Schema: public; Owner: Guest
 --
 
 ALTER TABLE ONLY public.albums ALTER COLUMN id SET DEFAULT nextval('public.albums_id_seq'::regclass);
+
+
+--
+-- Name: artists id; Type: DEFAULT; Schema: public; Owner: Guest
+--
+
+ALTER TABLE ONLY public.artists ALTER COLUMN id SET DEFAULT nextval('public.artists_id_seq'::regclass);
 
 
 --
@@ -134,17 +232,68 @@ ALTER TABLE ONLY public.songs ALTER COLUMN id SET DEFAULT nextval('public.songs_
 
 
 --
+-- Data for Name: album_artists; Type: TABLE DATA; Schema: public; Owner: Guest
+--
+
+COPY public.album_artists (id, artist_id, album_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
 -- Data for Name: albums; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
 COPY public.albums (id, name, year, created_at, updated_at, genre) FROM stdin;
-2	Giant Steps	\N	2019-08-05 16:54:04.229882	2019-08-05 16:54:04.229882	\N
-1	In Rainbows	1980	2019-08-05 16:52:34.842083	2019-08-05 18:23:47.606067	\N
-7	This 	\N	2019-08-06 16:15:45.27112	2019-08-06 16:15:45.27112	pop
-6	Yellow Submarine	1969	2019-08-06 16:01:23.239547	2019-08-06 16:16:19.487966	pop
-5	Something New	1964	2019-08-06 16:00:38.039818	2019-08-06 16:16:25.927338	pop
-3	Foo	\N	2019-08-05 20:09:23.722701	2019-08-06 16:16:30.759035	bar
-8	Dookie	\N	2019-08-06 16:25:15.672435	2019-08-06 16:25:26.335253	Punk
+3	Harp	\N	2019-08-07 16:40:10.980032	2019-08-07 16:40:10.980032	E
+4	Ukelele	\N	2019-08-07 16:40:10.983066	2019-08-07 16:40:10.983066	Eb
+5	Ukelele	\N	2019-08-07 16:40:10.984913	2019-08-07 16:40:10.984913	C
+6	Oboe	\N	2019-08-07 16:40:10.986584	2019-08-07 16:40:10.986584	E#
+7	Piano	\N	2019-08-07 16:40:10.988236	2019-08-07 16:40:10.988236	Gb
+8	Clarinet	\N	2019-08-07 16:40:10.98991	2019-08-07 16:40:10.98991	Ab
+9	Organ	\N	2019-08-07 16:40:10.991608	2019-08-07 16:40:10.991608	Cb
+10	Saxophone	\N	2019-08-07 16:40:10.993804	2019-08-07 16:40:10.993804	Fb
+11	Harmonica	\N	2019-08-07 16:40:10.995478	2019-08-07 16:40:10.995478	Cb
+12	Oboe	\N	2019-08-07 16:40:10.99725	2019-08-07 16:40:10.99725	Gb
+13	Saxophone	\N	2019-08-07 16:40:10.999027	2019-08-07 16:40:10.999027	Cb
+14	Clarinet	\N	2019-08-07 16:40:11.000689	2019-08-07 16:40:11.000689	Fb
+15	Saxophone	\N	2019-08-07 16:40:11.002367	2019-08-07 16:40:11.002367	Bb
+16	Violin	\N	2019-08-07 16:40:11.004022	2019-08-07 16:40:11.004022	Bb
+17	Trumpet	\N	2019-08-07 16:40:11.005777	2019-08-07 16:40:11.005777	D#
+18	Acoustic Guitar	\N	2019-08-07 16:40:11.007501	2019-08-07 16:40:11.007501	G
+19	Ukelele	\N	2019-08-07 16:40:11.009373	2019-08-07 16:40:11.009373	A
+20	Violin	\N	2019-08-07 16:40:11.011164	2019-08-07 16:40:11.011164	B#
+21	Piano	\N	2019-08-07 16:40:11.012856	2019-08-07 16:40:11.012856	C
+22	Trumpet	\N	2019-08-07 16:40:11.014996	2019-08-07 16:40:11.014996	Ab
+23	Saxophone	\N	2019-08-07 16:40:11.016806	2019-08-07 16:40:11.016806	E#
+24	Oboe	\N	2019-08-07 16:40:11.018524	2019-08-07 16:40:11.018524	Cb
+25	Ukelele	\N	2019-08-07 16:40:11.020287	2019-08-07 16:40:11.020287	Bb
+26	Cello	\N	2019-08-07 16:40:11.021994	2019-08-07 16:40:11.021994	Bb
+27	Organ	\N	2019-08-07 16:40:11.023688	2019-08-07 16:40:11.023688	Db
+28	Harp	\N	2019-08-07 16:40:11.025389	2019-08-07 16:40:11.025389	Cb
+29	Harp	\N	2019-08-07 16:40:11.097949	2019-08-07 16:40:11.097949	A
+30	Harp	\N	2019-08-07 16:40:11.100145	2019-08-07 16:40:11.100145	B#
+31	Saxophone	\N	2019-08-07 16:40:11.102007	2019-08-07 16:40:11.102007	Cb
+32	Organ	\N	2019-08-07 16:40:11.103772	2019-08-07 16:40:11.103772	Gb
+33	Harmonica	\N	2019-08-07 16:40:11.105491	2019-08-07 16:40:11.105491	F#
+34	Bass Guitar	\N	2019-08-07 16:40:11.107165	2019-08-07 16:40:11.107165	Gb
+35	Acoustic Guitar	\N	2019-08-07 16:40:11.108906	2019-08-07 16:40:11.108906	E
+36	Organ	\N	2019-08-07 16:40:11.110687	2019-08-07 16:40:11.110687	D#
+37	Harmonica	\N	2019-08-07 16:40:11.112383	2019-08-07 16:40:11.112383	A
+38	Flute	\N	2019-08-07 16:40:11.114425	2019-08-07 16:40:11.114425	E
+39	Drums	\N	2019-08-07 16:40:11.116281	2019-08-07 16:40:11.116281	F
+40	Oboe	\N	2019-08-07 16:40:11.118002	2019-08-07 16:40:11.118002	E
+41	Cello	\N	2019-08-07 16:40:11.119763	2019-08-07 16:40:11.119763	A
+42	Acoustic Guitar	\N	2019-08-07 16:40:11.121444	2019-08-07 16:40:11.121444	Gb
+43	Organ	\N	2019-08-07 16:40:11.123109	2019-08-07 16:40:11.123109	D
+44	Trumpet	\N	2019-08-07 16:40:11.124797	2019-08-07 16:40:11.124797	C#
+45	Trumpet	\N	2019-08-07 16:40:11.126665	2019-08-07 16:40:11.126665	Gb
+46	Violin	\N	2019-08-07 16:40:11.128475	2019-08-07 16:40:11.128475	Fb
+47	Piano	\N	2019-08-07 16:40:11.130492	2019-08-07 16:40:11.130492	C#
+48	Xylophone	\N	2019-08-07 16:40:11.132672	2019-08-07 16:40:11.132672	Db
+49	Violin	\N	2019-08-07 16:40:11.134462	2019-08-07 16:40:11.134462	D#
+50	Clarinet	\N	2019-08-07 16:40:11.136173	2019-08-07 16:40:11.136173	B
+51	Cello	\N	2019-08-07 16:40:11.137919	2019-08-07 16:40:11.137919	Gb
+52	Ukelele	\N	2019-08-07 16:40:11.13961	2019-08-07 16:40:11.13961	G
 \.
 
 
@@ -153,7 +302,15 @@ COPY public.albums (id, name, year, created_at, updated_at, genre) FROM stdin;
 --
 
 COPY public.ar_internal_metadata (key, value, created_at, updated_at) FROM stdin;
-environment	development	2019-08-05 16:08:35.453557	2019-08-05 16:08:35.453557
+environment	development	2019-08-07 15:08:37.475253	2019-08-07 15:08:37.475253
+\.
+
+
+--
+-- Data for Name: artists; Type: TABLE DATA; Schema: public; Owner: Guest
+--
+
+COPY public.artists (id, name, created_at, updated_at) FROM stdin;
 \.
 
 
@@ -166,6 +323,7 @@ COPY public.schema_migrations (version) FROM stdin;
 20190805161031
 20190805163214
 20190805163358
+20190807160108
 \.
 
 
@@ -174,29 +332,43 @@ COPY public.schema_migrations (version) FROM stdin;
 --
 
 COPY public.songs (id, name, lyrics, album_id, created_at, updated_at) FROM stdin;
-1	Reckoner	\N	1	2019-08-05 16:56:27.166412	2019-08-05 16:56:27.166412
-4	Song2	La la ba ba ba	2	2019-08-05 20:12:12.852558	2019-08-05 20:12:12.852558
-6	song 10	\N	1	2019-08-05 20:22:15.034333	2019-08-05 20:22:15.034333
-7	Song3	fjkdls fkjsaljfdskl	2	2019-08-05 20:24:15.700567	2019-08-05 20:24:15.700567
-9	asdf	fsaf	2	2019-08-05 20:45:53.621609	2019-08-05 20:45:53.621609
-10	dust in the wind	I close my eyes, only for a moment, and the moment's gone\r\nAll my dreams pass before my eyes, a curiosity\r\nDust in the wind\r\nAll they are is dust in the wind\r\nSame old song, just a drop of water in an endless sea\r\nAll we do crumbles to the ground though we refuse to see\r\nDust in the wind\r\nAll we are is dust in the wind\r\nOh, ho, ho\r\nNow, don't hang on, nothing lasts forever but the earth and sky\r\nIt slips away\r\nAnd all your money won't another minute buy\r\nDust in the wind\r\nAll we are is dust in the wind\r\nAll we are is dust in the wind\r\nDust in the wind\r\nEverything is dust in the wind\r\nEverything is dust in the wind\r\nThe wind	2	2019-08-06 15:28:43.201254	2019-08-06 15:29:16.578336
-5	Sisters of Mercy	All the sisters of mercy, they are not departed or gone\r\nThey were waiting for me when I thought that I just can't go on\r\nAnd they brought me their comfort and later they brought me this song\r\nOh, I hope you run into them, you who've been travelling so long\r\nYes, you who must leave everything that you cannot control\r\nIt begins with your family, but soon it comes around to your soul\r\nWell, I've been where you're hanging, I think I can see how you're pinned\r\nWhen you're not feeling holy, your loneliness says that you've sinned\r\nWell, they lay down beside me, I made my confession to them\r\nThey touched both my eyes and I touched the dew on their hem\r\nIf your life is a leaf that the seasons tear off and condemn\r\nThey will bind you with love that is graceful and green as a stem\r\nWhen I left they were sleeping, I hope you run into them soon\r\nDon't turn on the lights, you can read their address by the moon\r\nAnd you won't make me jealous if I hear that they sweetened your night\r\nWe weren't lovers like that and besides, it would still be all right\r\nWe weren't lovers like that and besides, it would still be all right	1	2019-08-05 20:20:15.004042	2019-08-06 15:31:04.673556
-11	She	She \r\nShe screams in silence A sulley roit penetrating through her mind Waiting for a sign to smash the silence with the brick of self control Are you locked up in a world that's been planned out for you? Are you feeling like a social tool without a use? Scream at me until my ears bleed I'm taking heed just for you She She's figured out  All her doubts were someone else's point of view Waking up this time to smash the silence with the brick of self control Are you locked up in a world that's been planned out for you? Are you feeling like a social tool without a use? Scream at me until my ears bleed I'm taking heed just for you Are you locked up in a world that's been planned out for you? Are you feeling like a social tool without a use? Scream at me until my ears bleed I'm taking heed just for you	8	2019-08-06 16:27:51.753857	2019-08-06 16:28:04.497808
 \.
+
+
+--
+-- Name: album_artists_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+--
+
+SELECT pg_catalog.setval('public.album_artists_id_seq', 1, false);
 
 
 --
 -- Name: albums_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('public.albums_id_seq', 8, true);
+SELECT pg_catalog.setval('public.albums_id_seq', 52, true);
+
+
+--
+-- Name: artists_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+--
+
+SELECT pg_catalog.setval('public.artists_id_seq', 1, false);
 
 
 --
 -- Name: songs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('public.songs_id_seq', 11, true);
+SELECT pg_catalog.setval('public.songs_id_seq', 1, false);
+
+
+--
+-- Name: album_artists album_artists_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest
+--
+
+ALTER TABLE ONLY public.album_artists
+    ADD CONSTRAINT album_artists_pkey PRIMARY KEY (id);
 
 
 --
@@ -216,6 +388,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
+-- Name: artists artists_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest
+--
+
+ALTER TABLE ONLY public.artists
+    ADD CONSTRAINT artists_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest
 --
 
@@ -229,6 +409,20 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.songs
     ADD CONSTRAINT songs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_album_artists_on_album_id; Type: INDEX; Schema: public; Owner: Guest
+--
+
+CREATE INDEX index_album_artists_on_album_id ON public.album_artists USING btree (album_id);
+
+
+--
+-- Name: index_album_artists_on_artist_id; Type: INDEX; Schema: public; Owner: Guest
+--
+
+CREATE INDEX index_album_artists_on_artist_id ON public.album_artists USING btree (artist_id);
 
 
 --
