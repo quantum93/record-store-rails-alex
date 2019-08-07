@@ -9,6 +9,10 @@ Things you may want to cover:
 
 * System dependencies
 
+ _for faker practice, use the faker information on
+ https://www.rubydoc.info/gems/faker/1.6.6#fakervehicle
+site for test_.
+
 * Configuration
 
 * Database creation

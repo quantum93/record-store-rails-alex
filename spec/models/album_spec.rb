@@ -9,4 +9,5 @@ describe Album do
     album = Album.create({name: "giant steps", genre: "jazz"})
     expect(album.name()).to(eq("Giant Steps"))
   end
+  it { should have_many(:artists).through(:album_artists) }
 end
