@@ -1,49 +1,49 @@
-# README
+# _Record Store_
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### _Using Ruby on Rails_
 
-Things you may want to cover:
+#### By _**Alex Siegberg and Tae Lee**_
 
-* Ruby version
+## Description
 
-* System dependencies
+_A digital Pokedex from the Pokemon television / game series. Pokedexes are handheld encyclopedias that Pokemon Trainers use in the field to identify new Pokemon that they encounter, or add entries for undiscovered Pokemon._
 
- _for faker practice, use the faker information on
- https://www.rubydoc.info/gems/faker/1.6.6#fakervehicle
-site for test_.
+## Setup/Installation Requirements
 
-* Configuration
-
+* Ruby version 2.5.1
+* rails 5.2.3
+* PostgreSQL 10 or above
 * Database creation
-
+*
 * Database initialization
-_1. On macOS,
+* _1. On macOS,
+* If you installed PostgreSQL via Homebrew:
+* To start manually:
+* pg_ctl -D /usr/local/var/postgres start
+* To stop manually:
+* pg_ctl -D /usr/local/var/postgres stop
+* To start PostgreSQL server now and relaunch at login:
+* brew services start postgresql
+* And stop PostgreSQL:
+* brew services stop postgresql
+* 2. On macOS,
+* To back up your database, go to the root directory of your project in the terminal. Run the following command in the bash shell (not in psql):
+* pg_dump [YOUR DATABASE NAME] > database_backup.sql_
 
-If you installed PostgreSQL via Homebrew:
+* Open in an ES6 compatible mobile browser, or use the chrome console to preview mobile display
+* For faker practice, use the faker information on https://www.rubydoc.info/gems/faker/1.6.6#fakervehicle site for test.
 
-To start manually:
-pg_ctl -D /usr/local/var/postgres start
+## Using the Record Store app.
 
-To stop manually:
-pg_ctl -D /usr/local/var/postgres stop
+_Enter the album and song information with lyric. The album, artist, and song information can be queried by type the name of album, song, and artists._
 
-To start PostgreSQL server now and relaunch at login:
-brew services start postgresql
+## Link to GitHub Pages
 
-And stop PostgreSQL:
-brew services stop postgresql
+_Link to GitHub repo:_
+https://github.com/quantum93/record-store-rails-alex
 
-2. On macOS,
+### License
 
-To back up your database, go to the root directory of your project in the terminal. Run the following command in the bash shell (not in psql):
+* _open source_
 
-pg_dump [YOUR DATABASE NAME] > database_backup.sql_
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Copyright (c) 2019 **_Alex Siegberg and Tae Lee_**
