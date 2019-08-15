@@ -6,7 +6,7 @@
 
 ## Description
 
-_A digital Pokedex from the Pokemon television / game series. Pokedexes are handheld encyclopedias that Pokemon Trainers use in the field to identify new Pokemon that they encounter, or add entries for undiscovered Pokemon._
+_A webpage of record store management functionality. We use Rails on Ruby with many-to-many relationship in database schema in order to implement the spec of this web application._
 
 ## Setup/Installation Requirements
 
